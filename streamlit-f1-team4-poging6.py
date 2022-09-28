@@ -17,11 +17,6 @@ import streamlit as st
 st.set_page_config(layout="wide")
 st.title('F1 2021 Season Overview')
 
-col1, col2 = st.columns([3, 1])
-col1.write(fig1)
-col1.write(fig2)
-# In[3]:
-
 
 seasons = [2021, 2020, 2019, 2018, 2017]
 
@@ -416,7 +411,9 @@ fig9.add_trace(go.Bar(x=means, y=names, orientation='h'))
 fig9.show()
 st.plotly_chart(fig9)
 
-
+plot1, plot2 = st.columns([5, 5])
+plot1.plotly_chart(fig1)
+plot2.plotly_chart(fig3)
 # In[ ]:
 
 
