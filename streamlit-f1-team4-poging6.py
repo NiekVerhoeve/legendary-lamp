@@ -340,7 +340,6 @@ st.markdown('Hier moeten we de code uitleggen[...]')
 
 # In[ ]:
 
-
 plot3, plot4 = st.columns([5, 5])
 plot3.plotly_chart(fig3)
 plot4.plotly_chart(fig4)
@@ -350,9 +349,14 @@ st.markdown('Hier moeten we de code uitleggen[...]')
 
 # In[ ]:
 
+plot5, plot6 = st.columns([5, 5])
+plot5.plotly_chart(fig5)
+plot6.plotly_chart(fig6)
+
+# In[ ]:
 
 plot7, text8 = st.columns([5, 5])
-plot7.plotly_chart(fig5)
+plot7.plotly_chart(fig7)
 text8.markdown('**Code uitleg**')
 text8.markdown('Hier moeten we de code uitleggen[...]')
 
