@@ -234,7 +234,7 @@ fig4.show()
 # In[ ]:
 
 
-# st.set_page_config(layout="wide")
+st.set_page_config(layout="wide")
 st.title('F1 2021 Season Overview')
 
 
