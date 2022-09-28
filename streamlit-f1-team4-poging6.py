@@ -17,7 +17,9 @@ import streamlit as st
 st.set_page_config(layout="wide")
 st.title('F1 2021 Season Overview')
 
-
+col1, col2 = st.columns([3, 1])
+col1.write(fig1)
+col1.write(fig2)
 # In[3]:
 
 
