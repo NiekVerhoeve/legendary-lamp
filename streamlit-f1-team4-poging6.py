@@ -144,7 +144,7 @@ fig1.update_xaxes(type='category', title={'text': 'Race'})
 fig1.update_yaxes(title={'text': 'Gecumuleerd aantal punten'})
 fig1.update_layout(legend_title_text='Coureur')
 fig1.show()
-st.plotly_chart(fig1)
+
 
 
 # In[9]:
@@ -170,7 +170,7 @@ fig2.update_layout(legend=dict(
     xanchor="right",
     x=1))
 fig2.show()
-st.plotly_chart(fig2)
+
 
 
 # In[10]:
@@ -203,7 +203,7 @@ fig3.update_xaxes(type='category', title={'text': 'Race'})
 fig3.update_yaxes(title={'text': 'Gecumuleerd aantal punten'})
 fig3.update_layout(legend_title_text='Constructeur')
 fig3.show()
-st.plotly_chart(fig3)
+
 
 
 # In[11]:
@@ -388,7 +388,6 @@ fig8.update_layout(legend=dict(
     xanchor="right",
     x=1))
 fig8.show()
-st.plotly_chart(fig8)
 
 
 # In[20]:
@@ -414,7 +413,10 @@ st.plotly_chart(fig9)
 plot1, plot2 = st.columns([5, 5])
 plot1.plotly_chart(fig1)
 plot2.plotly_chart(fig3)
-# In[ ]:
+
+plot3, plot4 = st.columns([5, 5])
+plot3.plotly_chart(fig2)
+plot4.plotly_chart(fig8)
 
 
 
