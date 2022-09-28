@@ -291,6 +291,26 @@ fig6.update_layout(
     sliders=sliders)
 
 fig6.show()
+
+# Calc. avg speed of fastest lap per track in bar plot
+
+fig7 = go.Figure()
+
+names = []
+means = []
+
+for name, group in df_2021.groupby(['Circuit.circuitName']):
+
+    names.append(name)
+    means.append(group['FastestLap.AverageSpeed.speed'].mean())
+
+fig7.add_trace(go.Bar(x=means, y=names, orientation='h'))
+
+fig7.update_xaxes(title={'text': 'Seconden'})
+fig7.update_yaxes(title={'text': 'Circuit'})
+fig7.update_layout(title="Gemiddelde tijd van de snelste ronde per circuit in seizoen 2021")
+
+fig7.show()
 # #### Setting up the dashboard
 
 # In[ ]:
@@ -331,7 +351,8 @@ st.markdown('Hier moeten we de code uitleggen[...]')
 # In[ ]:
 
 
-plot5, plot6 = st.columns([5, 5])
-plot5.plotly_chart(fig5)
-plot6.plotly_chart(fig6)
+plot7, text8 = st.columns([5, 5])
+plot7.plotly_chart(fig5)
+text8.markdown('**Code uitleg**')
+text8.markdown('Hier moeten we de code uitleggen[...]')
 
