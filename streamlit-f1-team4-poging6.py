@@ -13,11 +13,6 @@ import streamlit as st
 
 # In[2]:
 
-
-# st.set_page_config(layout="wide")
-st.title('F1 2021 Season Overview')
-
-
 seasons = [2021, 2020, 2019, 2018, 2017]
 
 seasons_races = []
@@ -239,7 +234,7 @@ fig4.show()
 # In[ ]:
 
 
-st.set_page_config(layout="wide")
+# st.set_page_config(layout="wide")
 st.title('F1 2021 Season Overview')
 
 
