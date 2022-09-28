@@ -252,7 +252,9 @@ plot1, plot2 = st.columns([5, 5])
 plot1.plotly_chart(fig1)
 plot2.plotly_chart(fig2)
 
-
+st.markdown('**Code uitleg**')
+st.markdown('Hier moeten we de code uitleggen[...]')
+st.code(fig1)
 # In[ ]:
 
 
