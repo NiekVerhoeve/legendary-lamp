@@ -254,7 +254,7 @@ plot2.plotly_chart(fig2)
 
 st.markdown('**Code uitleg**')
 st.markdown('Hier moeten we de code uitleggen[...]')
-st.code(fig1)
+# st.code(fig1)
 # In[ ]:
 
 
