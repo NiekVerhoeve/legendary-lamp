@@ -228,7 +228,69 @@ fig4.update_layout(legend=dict(
     x=1.2))
 fig4.show()
 
+# Calc. podium places
+fig5 = go.Figure()
 
+counter = 0
+
+for position, group in df_2021.groupby(by='position'):
+
+    if counter < 3:
+
+        fig5.add_trace(go.Bar(
+            x=group['Driver.familyName'].value_counts().keys().tolist(),
+            y=group['Driver.familyName'].value_counts().tolist(),
+        name=position))
+    
+        counter+=1
+
+sliders = [
+    {'steps':[
+    {'method': 'update', 'label': '1e plek', 'args': [{'visible': [True, False, False]}]},
+    {'method': 'update', 'label': '2e plek', 'args': [{'visible': [False, True, False]}]},
+    {'method': 'update', 'label': '3e plek', 'args': [{'visible': [False, False, True]}]}]}]
+
+fig5.update_layout(
+    title="Verdeling podiumplaatsen per coureur in seizoen 2021",
+    # xaxis_title="Coureur",
+    yaxis_title="Aantal podiumplaatsen",
+    legend_title="Podiumplaats")
+
+fig5.show()
+
+# Calc. podium places
+fig6 = go.Figure()
+
+counter = 0
+
+for position, group in df_2021.groupby(by='position'):
+
+    if counter < 3:
+
+        fig6.add_trace(go.Pie(labels=group['Driver.familyName'].value_counts().keys().tolist(), 
+                             values=group['Driver.familyName'].value_counts().tolist(), 
+                             scalegroup='one',title='# of podium finishes per driver'))
+
+        counter+=1
+
+sliders = [
+    {'steps':[
+    {'method': 'update', 'label': '1e plek', 'args': [{'visible': [True, False, False]}]},
+    {'method': 'update', 'label': '2e plek', 'args': [{'visible': [False, True, False]}]},
+    {'method': 'update', 'label': '3e plek', 'args': [{'visible': [False, False, True]}]}]}]
+
+fig6.data[1].visible = False
+fig6.data[2].visible = False
+
+fig6.update_traces(textposition='inside',textinfo='value',marker=dict(line=dict(color='#000000', width=2)))
+fig6.update_layout(
+    title="Verdeling podiumplaatsen per coureur in seizoen 2021",
+    # xaxis_title="Coureur",
+    yaxis_title="Aantal podiumplaatsen",
+    legend_title="Driver",
+    sliders=sliders)
+
+fig6.show()
 # #### Setting up the dashboard
 
 # In[ ]:
@@ -255,9 +317,21 @@ plot2.plotly_chart(fig2)
 st.markdown('**Code uitleg**')
 st.markdown('Hier moeten we de code uitleggen[...]')
 # st.code(fig1)
+
 # In[ ]:
 
 
 plot3, plot4 = st.columns([5, 5])
 plot3.plotly_chart(fig3)
 plot4.plotly_chart(fig4)
+
+st.markdown('**Code uitleg**')
+st.markdown('Hier moeten we de code uitleggen[...]')
+
+# In[ ]:
+
+
+plot5, plot6 = st.columns([5, 5])
+plot5.plotly_chart(fig5)
+plot6.plotly_chart(fig6)
+
