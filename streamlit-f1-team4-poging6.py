@@ -84,9 +84,12 @@ df_seasons_races['totalPointsConstructor'] = df_seasons_races.groupby(by=['seaso
 df_2021 = df_seasons_races[df_seasons_races['season'] == 2021]
 
 
-# In[8]:
+# #### Visualizing data
+
+# In[ ]:
 
 
+# Plotting the data
 fig1 = px.line(df_2021, x="round", y="totalPointsDriver", color='Driver.familyName', 
               title="Gecumuleerd aantal punten per coureur per race in seizoen 2021", range_y=[0,450])
 
@@ -137,6 +140,7 @@ dropdown_buttons = [
                                                              False, False, False, False, False, False, False, False, False, False, True]}, {"title": "Gecumuleerd aantal punten Kubica per race in seizoen 2021"}]},
 ]
 
+# Making the layout
 fig1.update_layout({'updatemenus': [
         {'active': 0, 'buttons': dropdown_buttons}
         ]})
@@ -146,37 +150,11 @@ fig1.update_layout(legend_title_text='Coureur')
 fig1.show()
 
 
-
-# In[9]:
-
-
-fig2 = px.bar(df_2021, x='Driver.code', y='points', color='Circuit.circuitName', 
-             animation_frame='round', animation_group='points', range_x=[-0.5, 9.5], range_y=[0,30],
-             labels={"Driver.code":"Driver", 'points':'Points', 'Circuit.circuitName':'Circuit'}, 
-             title='Point per driver per round')
-
-#fig = px.bar(df_2021, x='Driver.code', y='points', color='Constructor.name', 
-#            range_x=[-0.5, 9.5], range_y=[0,30],
-#             labels={"Driver.code":"Driver", 'points':'Points', 'Circuit.circuitName':'Circuit'}, 
-#             title='Point per driver per round')
-
-fig2.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
+# In[ ]:
 
 
-# legenda verplaatsen zodat formaat chart niet wijzigd 
-fig2.update_layout(legend=dict(
-    yanchor="top",
-    y=0.99,
-    xanchor="right",
-    x=1))
-fig2.show()
-
-
-
-# In[10]:
-
-
-fig3 = px.line(df_2021, x="round", y="totalPointsConstructor", color='Constructor.name', 
+# Plotting the data
+fig2 = px.line(df_2021, x="round", y="totalPointsConstructor", color='Constructor.name', 
               title="Gecumuleerd aantal punten per constructeur per race in seizoen 2021", range_y=[0,650])
 
 # Create the buttons
@@ -194,230 +172,95 @@ dropdown_buttons = [
 {'label': "Haas F1 Team", 'method': "update", 'args': [{"visible": [False, False, False, False, False, False, False, False, False, True]}, {"title": "Gecumuleerd aantal punten Haas F1 Team per race in seizoen 2021"}]},
 ]
 
-# Update the figure to add dropdown menu
-fig3.update_layout({'updatemenus': [
+# Making the layout
+fig2.update_layout({'updatemenus': [
         {'active': 0, 'buttons': dropdown_buttons}
         ]})
 
-fig3.update_xaxes(type='category', title={'text': 'Race'})
-fig3.update_yaxes(title={'text': 'Gecumuleerd aantal punten'})
-fig3.update_layout(legend_title_text='Constructeur')
+fig2.update_xaxes(type='category', title={'text': 'Race'})
+fig2.update_yaxes(title={'text': 'Gecumuleerd aantal punten'})
+fig2.update_layout(legend_title_text='Constructeur')
+fig2.show()
+
+
+# In[ ]:
+
+
+fig3 = px.bar(df_2021, x='Driver.familyName', y='points', color='Constructor.name', 
+             animation_frame='round', animation_group='points', range_x=[-0.5, 9.5], range_y=[0,30],
+             labels={"Driver.familyName":"Coureur", 'points':'Punten', 'Constructor.name':'Constructeur team'}, 
+             title='Punten per coureur per ronde')
+
+fig3.update_xaxes(tickangle=45)
+fig3['layout'].pop('updatemenus')
+sliders = [dict(
+    active=0,
+    currentvalue={"prefix": "Round ", 'suffix':':'},
+    pad={"t": 5})]
+
+fig3.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'}, sliders=sliders)
+fig3['layout']['sliders'][0]['pad']=dict(r= 10, t= 100,)
+fig3.update_layout(legend=dict(
+    yanchor="top",
+    y=0.99,
+    xanchor="right",
+    x=1.2))
 fig3.show()
 
 
-
-# In[11]:
-
-
-# bar constructor points per race
+# In[ ]:
 
 
-# In[12]:
-
-
-# Calc. pole positions per driver
-
-fig4 = go.Figure()
-
-drivers = []
-polePositions = []
-winPositions = []
-
-for driver, group in df_2021.groupby('Driver.familyName'):
-    
-    rowNumPoles = group[group['grid'] == 1].shape[0]
-    rowNumWins = group[group['position'] == 1].shape[0]
-    
-    drivers.append(driver)
-    polePositions.append(rowNumPoles)
-    winPositions.append(rowNumWins)
-
-
-fig4.add_trace(go.Bar(x=drivers, y=polePositions, name="Pole"))
-fig4.add_trace(go.Bar(x=drivers, y=winPositions, name="Win"))
-
-# Create the buttons
-dropdown_buttons = [
-{'label': "ALL", 'method': "update", 'args': [{"visible": [True, True]}, {"title": "ALL"}]},
-{'label': "Pole", 'method': "update", 'args': [{"visible": [True, False]}, {"title": "Pole"}]},
-{'label': "Win", 'method': "update", 'args': [{"visible": [False, True]}, {"title": "Win"}]}
-]
-fig4.update_layout(
-
-    title="Verdeling pole posities en races gewonnen per coureur in seizoen 2021",
-    xaxis_title="Coureur",
-    yaxis_title="Aantal",
-    legend_title="Type",
-  		updatemenus = [
-        {'active': 0, 'buttons': dropdown_buttons}
-        ]
-        )
-
-fig4.show()
-st.plotly_chart(fig4)
-
-
-# In[18]:
-
-
-# Calc. pole positions per driver
-
-fig5 = go.Figure()
-
-drivers = []
-polePositions = []
-
-for driver, group in df_2021.groupby('Driver.familyName'):
-    
-    rowNum = group[group['grid'] == 1].shape[0]
-    
-    drivers.append(driver)
-    polePositions.append(rowNum)
-
-fig5.add_trace(go.Pie(labels=drivers, values=polePositions, scalegroup='one'))
-fig5.update_traces(textposition='inside',textinfo='value',marker=dict(line=dict(width=2)))
-fig5.update_layout(uniformtext_minsize=20, uniformtext_mode='hide',title="Verdeling pole positions per coureur in seizoen 2021", legend=dict(font=dict(size=12)),margin=dict(
-        l=0,
-        r=0,
-        b=0,
-        t=50,
-        pad=0,
-        
-    ))
-
-    
-fig5.show()
-st.plotly_chart(fig5)
-
-
-# In[14]:
-
-
-# Calc. podium places
-fig6 = go.Figure()
-
-counter = 0
-
-for position, group in df_2021.groupby(by='position'):
-
-    if counter < 3:
-
-        fig6.add_trace(go.Bar(
-            x=group['Driver.familyName'].value_counts().keys().tolist(),
-            y=group['Driver.familyName'].value_counts().tolist(),
-        name=position))
-    
-        counter+=1
-
-sliders = [
-    {'steps':[
-    {'method': 'update', 'label': '1e plek', 'args': [{'visible': [True, False, False]}]},
-    {'method': 'update', 'label': '2e plek', 'args': [{'visible': [False, True, False]}]},
-    {'method': 'update', 'label': '3e plek', 'args': [{'visible': [False, False, True]}]}]}]
-
-fig6.update_layout(
-    title="Verdeling podiumplaatsen per coureur in seizoen 2021",
-    # xaxis_title="Coureur",
-    yaxis_title="Aantal podiumplaatsen",
-    legend_title="Podiumplaats")
-
-fig6.show()
-st.plotly_chart(fig6)
-
-
-# In[19]:
-
-
-# Calc. podium places
-fig7 = go.Figure()
-
-counter = 0
-
-for position, group in df_2021.groupby(by='position'):
-
-    if counter < 3:
-
-        fig7.add_trace(go.Pie(labels=group['Driver.familyName'].value_counts().keys().tolist(), 
-                             values=group['Driver.familyName'].value_counts().tolist(), 
-                             scalegroup='one',title='# of podium finishes per driver'))
-
-        counter+=1
-
-sliders = [
-    {'steps':[
-    {'method': 'update', 'label': '1e plek', 'args': [{'visible': [True, False, False]}]},
-    {'method': 'update', 'label': '2e plek', 'args': [{'visible': [False, True, False]}]},
-    {'method': 'update', 'label': '3e plek', 'args': [{'visible': [False, False, True]}]}]}]
-
-fig7.data[1].visible = False
-fig7.data[2].visible = False
-
-fig7.update_traces(textposition='inside',textinfo='value',marker=dict(line=dict(color='#000000', width=2)))
-fig7.update_layout(
-    title="Verdeling podiumplaatsen per coureur in seizoen 2021",
-    # xaxis_title="Coureur",
-    yaxis_title="Aantal podiumplaatsen",
-    legend_title="Driver",
-    sliders=sliders)
-
-fig7.show()
-st.plotly_chart(fig7)
-
-
-# In[16]:
-
-
-fig8 = px.bar(df_2021, x='Constructor.name', y='points', color='Driver.code', 
+fig4 = px.bar(df_2021, x='Constructor.name', y='points', color='Driver.familyName', 
              animation_frame='round', animation_group='points', range_x=[-0.5, 9.5], range_y=[0,45],
-             labels={"Driver.code":"Driver", 'points':'Points', 'Constructor.name':'Constructor team'}, 
-             title='Points constructor driver per round')
+             labels={"Driver.familyName":"Coureur", 'points':'Punten', 'Constructor.name':'Constructeur team'}, 
+             title='Punten per constructeur per race')
 
-fig8['layout'].pop('updatemenus')
+fig4['layout'].pop('updatemenus')
 sliders = [dict(
     active=0,
     currentvalue={"prefix": "Round ", 'suffix':':'},
     pad={"t": 5})]
 
 
-fig8.update_xaxes(tickangle=45)
-fig8.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'}, sliders=sliders)
-fig8['layout']['sliders'][0]['pad']=dict(r= 10, t= 100,)
-fig8.update_layout(legend=dict(
+fig4.update_xaxes(tickangle=45)
+fig4.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'}, sliders=sliders)
+fig4['layout']['sliders'][0]['pad']=dict(r= 10, t= 100,)
+fig4.update_layout(legend=dict(
     yanchor="top",
     y=0.99,
     xanchor="right",
-    x=1))
-fig8.show()
+    x=1.2))
+fig4.show()
 
 
-# In[20]:
+# #### Setting up the dashboard
+
+# In[ ]:
 
 
-# Calc. avg speed of fastest lap per track in histogram
+st.set_page_config(layout="wide")
+st.title('F1 2021 Season Overview')
 
-fig9 = go.Figure()
 
-names = []
-means = []
+# In[ ]:
 
-for name, group in df_2021.groupby(['Circuit.circuitName']):
 
-    names.append(name)
-    means.append(group['FastestLap.AverageSpeed.speed'].mean())
+st.subheader('Behaalde punten in seizoen 2021')
+st.markdown('Hier moeten we beschrijven wat er te zien is in de plot[...]')
 
-fig9.add_trace(go.Bar(x=means, y=names, orientation='h'))
 
-fig9.show()
-st.plotly_chart(fig9)
+# In[ ]:
+
 
 plot1, plot2 = st.columns([5, 5])
 plot1.plotly_chart(fig1)
-plot2.plotly_chart(fig3)
+plot2.plotly_chart(fig2)
+
+
+# In[ ]:
+
 
 plot3, plot4 = st.columns([5, 5])
-plot3.plotly_chart(fig2)
-plot4.plotly_chart(fig8)
-
-
-
-
+plot3.plotly_chart(fig3)
+plot4.plotly_chart(fig4)
