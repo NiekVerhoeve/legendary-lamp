@@ -536,6 +536,40 @@ st.subheader('Raceposities in seizoen 2021')
 
 st.markdown('Onderstaande staafgrafiek en cirkeldiagram vormen gezamenlijk een inzicht in de behaalde podiumfinishes van de coureurs. Zo is in de staafgrafiek in een oogopslag te zien hoeveel eerste, tweede en derde plaatsen elke coureur heeft behaald. De cirkeldiagram rechts ernaast laat verder de verhouding tussen de coureurs per podiumpositie zien.')
 
+st.markdown('**Code uitleg**')
+
+piechart_podium_code = '''fig5 = go.Figure()
+
+counter = 0
+
+for position, group in df_2021.groupby(by='position'):
+
+    if counter < 3:
+
+        fig5.add_trace(go.Bar(
+            x=group['Driver.familyName'].value_counts().keys().tolist(),
+            y=group['Driver.familyName'].value_counts().tolist(),
+        name=position))
+    
+        counter+=1
+
+sliders = [
+    {'steps':[
+    {'method': 'update', 'label': '1e plek', 'args': [{'visible': [True, False, False]}]},
+    {'method': 'update', 'label': '2e plek', 'args': [{'visible': [False, True, False]}]},
+    {'method': 'update', 'label': '3e plek', 'args': [{'visible': [False, False, True]}]}]}]
+
+fig5.update_layout(
+    title="Verdeling podiumplaatsen per coureur in seizoen 2021",
+    # xaxis_title="Coureur",
+    yaxis_title="Aantal podiumplaatsen",
+    legend_title="Podiumplaats")
+
+fig5.show()'''
+
+st.markdown('Om de cirkeldiagram op te stellen is gebruik gemaakt van plotly graphic object. Door gebruik van een variabele met waarde 0 (counter), kan 3 keer door een if statement gelooped worden om de waarden van finish positie een, twee en drie te verzamelen. Deze waardes worden met traces geplot op de cirkeldiagram. Hierna wordt met een slider een onderscheiding gemaakt tussen de drie verschillende podiumposities. Voor step 1, 1e plek, wordt de data van trace 2 en 3 verborgen. Hierdoor is dus alleen de data van podiumfinish 1 te zien als de slider op 1e plek staat. Dit geldt ook voor 2e en 3e plek, alleen worden hier dan andere traces verborgen.')
+st.code(piechart_podium_code,language='python')
+
 # In[ ]:
 
 plot5, plot6 = st.columns([5, 5])
