@@ -399,36 +399,26 @@ import_api= '''seasons = [2021]
 
 seasons_races = []
 
-for season in seasons:
-    
+for season in seasons:   
     url = 'https://ergast.com/api/f1/' + str(season) + '.json'
-    
     response = requests.get(url)
 
     if response.status_code != 200:
-
         print('Error fetching data from source: ' + url)
 
     else:
-
         data = response.json()
 
-        for race in data['MRData']['RaceTable']['Races']:
-            
-            url = 'http://ergast.com/api/f1/' + str(season) + '/' + race['round'] + '/results.json'
-            
+        for race in data['MRData']['RaceTable']['Races']: 
+            url = 'http://ergast.com/api/f1/' + str(season) + '/' + race['round'] + '/results.json' 
             response = requests.get(url)
 
             if response.status_code != 200:
-
                 print('Error fetching data from source: ' + url)
 
             else:
-
                 data = response.json()
-
                 seasons_races.append(data['MRData']['RaceTable']['Races'][0])
-
                 print('Successfully fetched data from source: ' + url + '.')'''
 
 st.code(import_api, language='python')
