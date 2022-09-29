@@ -436,10 +436,10 @@ st.code(subset_2021, language='python')
 
 st.markdown('Naast de bestaande data zijn er voor de visualisaties extra kolommen met data aangemaakt. Deze extra kolommen maken het mekkelijker om bepaalde inzichten in totale punten en finishes per coureur en team te weergeven.')
 
-# kolommen_code = '''df_seasons_races['totalPointsDriver'] = df_seasons_races.groupby(by=['season','Driver.driverId'])['points'].transform('cumsum')
-#                    df_seasons_races['totalPointsConstructor'] = df_seasons_races.groupby(by=['season','Constructor.constructorId'])['points'].transform('cumsum')'''
+kolommen_code = '''df_seasons_races['totalPointsDriver'] = df_seasons_races.groupby(by=['season','Driver.driverId'])['points'].transform('cumsum')
+df_seasons_races['totalPointsConstructor'] = df_seasons_races.groupby(by=['season','Constructor.constructorId'])['points'].transform('cumsum')'''
 
-# st.code(kolommen_code, language='python')
+st.code(kolommen_code, language='python')
 
 
 st.markdown('Nu de dataset volledig en correct is geimporteerd, kan deze worden bekeken. In onderstaande tabel zijn de eerste 10 rijen van de dataset zichtbaar gemaakt.')
