@@ -438,13 +438,13 @@ st.markdown('Nu de dataset volledig en correct is geimporteerd, kan deze worden 
 st.dataframe(df_2021.head(10))
 
 st.subheader('Behaalde punten in seizoen 2021')
-st.markdown('Hier moeten we beschrijven wat er te zien is in de plot[...]')
+st.markdown("Om eerst een overzicht te creëren van de uitkomst van het 2021 seizoen is er voor gekozen om twee line charts op te stellen. Hiermee is de puntenverdeling per coureur en per team overzichtelijk gevisualiseerd. In de dropdown menu's kan er specifieker gekeken worden naar een enkele coureur of team.")
 
 
 # In[ ]:
 
 st.markdown('**Code uitleg**')
-st.markdown('Hier moeten we de code uitleggen[...]')
+st.markdown('Om de visualisatie te realiseren is er gebruik gemaakt van plotly. Door de  juiste dataframe, x-as, y-as en nog een aantal variabelen in te vullen (zoals in de code hier onder), kan er met de px.line functie een juiste grafiek worden geplot. Zoals te zien is de code voor het maken van de labels erg lang. Er is gekeken naar een betere oplossing hier voor, maar die is helaas niet gevonden.')
 
 linechart_code = '''# Plotting the data
 fig2 = px.line(df_2021, x="round", y="totalPointsConstructor", color='Constructor.name', 
