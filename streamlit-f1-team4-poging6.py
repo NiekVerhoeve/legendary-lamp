@@ -588,6 +588,7 @@ scatterplot_code = '''fig8 = px.scatter(df_2021, x="TotalPoints", y="TotalFinish
                  labels={'TotalFinishes':'# Finishes', 'TotalPoints':'Aantal punten', 'Driver.familyName':'Coureur'})
 fig8.update_layout()
 fig8.show()'''
+
 st.code(scatterplot_code,language='python')
 
 
