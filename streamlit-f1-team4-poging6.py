@@ -429,6 +429,10 @@ fixing_nested = '''df_seasons_races = pd.json_normalize(seasons_races,
     meta=['season', 'round', 'raceName', 'date', 'time', ['Circuit', 'circuitName'], 
           ['Circuit', 'Location', 'locality'], ['Circuit', 'Location', 'country']])'''
 st.code(fixing_nested, language='python')
+st.mardown('Omdat er dus in eerste instantie het idee was om meer dan alleen het 2021 seizoen te gebruiken, is er met de volgende code alle data uit het 2021 seizoen gesubset voor specifieke doeleinden:')
+
+subset_2021 = '''df_2021 = df_seasons_races[df_seasons_races['season'] == 2021]'''
+st.code(subset_2021, language='python')
 
 st.subheader('Behaalde punten in seizoen 2021')
 st.markdown('Hier moeten we beschrijven wat er te zien is in de plot[...]')
