@@ -444,7 +444,7 @@ st.markdown("Om eerst een overzicht te creëren van de uitkomst van het 2021 sei
 # In[ ]:
 
 st.markdown('**Code uitleg**')
-st.markdown('Om de visualisatie te realiseren is er gebruik gemaakt van plotly. Door de  juiste dataframe, x-as, y-as en nog een aantal variabelen in te vullen (zoals in de code hier onder), kan er met de px.line functie een juiste grafiek worden geplot. Zoals te zien is de code voor het maken van de labels erg lang. Er is gekeken naar een betere oplossing hier voor, maar die is helaas niet gevonden.')
+st.markdown('Om de visualisatie te realiseren is er gebruik gemaakt van plotly express. Door de  juiste dataframe, x-as, y-as en nog een aantal variabelen in te vullen (zoals in de code hier onder), kan er met de px.line functie een juiste grafiek worden geplot. Zoals te zien is de code voor het maken van de labels erg lang. Er is gekeken naar een betere oplossing hier voor, maar die is helaas niet gevonden. De onderstaande code is op een aantal benodigde aanpassingen voor beide lijngrafieken gebruikt')
 
 linechart_code = '''# Plotting the data
 fig2 = px.line(df_2021, x="round", y="totalPointsConstructor", color='Constructor.name', 
@@ -483,6 +483,34 @@ plot2.plotly_chart(fig2)
 
 
 # In[ ]:
+
+st.markdown('Om meer in te zoomen op het algemene overzicht wat de lijngrafieken hebben gegeven, zijn er twee staafgrafieken gerealiseerd. Aan de hand van een slider onderaan de grafieken kan er makkelijk per race worden gekeken naar het aantal behaalde punten per coureur en team. In de rechter van de twee onderstaande grafieken is gebruik gemaakt van een stacked overzicht om de verschillen in behaalde punten tussen de teamgenoten te visualiseren.')
+st.markdown('**Code uitleg**')
+st.markdown('Voor het maken van de staafgrafieken is weer gebruik gemaakt van plotly express. Echter is er nu inplaats van de px.line functie gebruik gemaakt van de px.bar functie. Het verder invullen van de benodigde data gaat volgens de zelfde weg. Om een slider toe te voegen zijn de elementen animation_frame en animation_group nodig. Met de animation_frame wordt bepaald welke data voor de slider wordt gebruikt. Met de animation_group wordt vastgesteld welke data hetzelfde blijft.')
+
+barplot_code = '''fig4 = px.bar(df_2021, x='Constructor.name', y='points', color='Driver.familyName', 
+             animation_frame='round', animation_group='points', range_x=[-0.5, 9.5], range_y=[0,45],
+             labels={"Driver.familyName":"Coureur", 'points':'Punten', 'Constructor.name':'Constructeur team'}, 
+             title='Punten per constructeur per race')
+
+fig4['layout'].pop('updatemenus')
+sliders = [dict(
+    active=0,
+    currentvalue={"prefix": "Round ", 'suffix':':'},
+    pad={"t": 5})]
+
+
+fig4.update_xaxes(tickangle=45)
+fig4.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'}, sliders=sliders)
+fig4['layout']['sliders'][0]['pad']=dict(r= 10, t= 100,)
+fig4.update_layout(legend=dict(
+    yanchor="top",
+    y=0.99,
+    xanchor="right",
+    x=1.2))
+fig4.show()'''            
+
+st.code(barplot_code, language='python')
 
 plot3, plot4 = st.columns([5, 5])
 plot3.plotly_chart(fig3)
