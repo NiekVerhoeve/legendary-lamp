@@ -307,7 +307,7 @@ for name, group in df_2021.groupby(['Circuit.circuitName']):
 
 fig9.add_trace(go.Bar(x=means, y=names, orientation='h'))
 
-fig9.update_xaxes(title={'text': 'Seconden'})
+fig9.update_xaxes(title={'text': 'Snelheid (kp/h)'})
 fig9.update_yaxes(title={'text': 'Circuit'})
 fig9.update_layout(title="Gemiddelde tijd van de snelste ronde per circuit in seizoen 2021")
 
@@ -595,6 +595,32 @@ st.code(scatterplot_code, language='python')
 plot7, plot8 = st.columns([5, 5])
 plot7.plotly_chart(fig7)
 plot8.plotly_chart(fig8)
+
+speed_barchart_code = '''fig9 = go.Figure()
+
+names = []
+means = []
+
+for name, group in df_2021.groupby(['Circuit.circuitName']):
+
+    names.append(name)
+    means.append(group['FastestLap.AverageSpeed.speed'].mean())
+
+fig9.add_trace(go.Bar(x=means, y=names, orientation='h'))
+
+fig9.update_xaxes(title={'text': 'Seconden'})
+fig9.update_yaxes(title={'text': 'Circuit'})
+fig9.update_layout(title="Gemiddelde tijd van de snelste ronde per circuit in seizoen 2021")
+
+fig9.show()'''
+
+st.subheader('Circuit data')
+st.markdown('Tot slot is er nog gekeken naar de circuits. Gezien er op zoveel verschille de circuits geraced is, was het interessant om te kijken of er bepaalde circuits aanzienlijk sneller zijn dan andere circuits. Door te kijken naar de gemiddelde snelheid van de coureurs tijdens hun snelste ronde per circuit, is nu te zien of er bepaalde circuits dus een veel hogere of lagere gemiddelde snelheid hebben. Uiteraard komt het soms voor dat coureurs een aparte set banden tijdens de race gebruiken om een zo snel mogelijke tijd neer te zetten, gezien er een extra punt te verdienen is als je de snelste ronde hebt gereden (en in de top 10 finished). Hierdoor is er besloten om het gemiddelde van deze gemiddelde snelheid van alle coureurs te pakken. Zo vormt deze data een betrouwbaar en eerlijk inzicht.')
+
+st.markdown('**Code uitleg**')
+st.markdown('Door steeds de data van de circuits en de gemiddelde rondetijd in twee lege lists op te slaan, kan daarna per trace dus een record uit deze lists worden geplot. Op die manier wordt het gemiddelde van alle gemiddelde snelheden waardes gepakt, groupped by circuit en opgeslagen in de variabel means. Op hetzelfde moment wordt dan in de variabel names de bijbehorende circuitnaam opgeslagen. Dezse worden dan via de trace tegelijk geplot. Doormiddel van orientation liggen de bars horizontaal. Dit maakt de plot iets overzichtelijker.')
+
+st.code(speed_barchart_code,language='python')
 
 plot9, text8 = st.columns([5, 5])
 plot9.plotly_chart(fig9)
