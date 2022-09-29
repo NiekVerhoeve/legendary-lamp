@@ -532,8 +532,9 @@ plot3, plot4 = st.columns([5, 5])
 plot3.plotly_chart(fig3)
 plot4.plotly_chart(fig4)
 
-st.markdown('**Code uitleg**')
-st.markdown('Hier moeten we de code uitleggen[...]')
+st.subheader('Raceposities in seizoen 2021')
+
+st.markdown('Onderstaande staafgrafiek en cirkeldiagram vormen gezamenlijk een inzicht in de behaalde podiumfinishes van de coureurs. Zo is in de staafgrafiek in een oogopslag te zien hoeveel eerste, tweede en derde plaatsen elke coureur heeft behaald. De cirkeldiagram rechts ernaast laat verder de verhouding tussen de coureurs per podiumpositie zien.')
 
 # In[ ]:
 
