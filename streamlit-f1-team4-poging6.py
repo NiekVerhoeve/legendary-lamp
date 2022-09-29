@@ -7,6 +7,7 @@
 import requests
 import pandas as pd
 import plotly.express as px
+import numpy as np
 import plotly.graph_objects as go
 import streamlit as st 
 
@@ -294,7 +295,7 @@ fig6.show()
 
 # Calc. avg speed of fastest lap per track in bar plot
 
-fig7 = go.Figure()
+fig9 = go.Figure()
 
 names = []
 means = []
@@ -304,13 +305,79 @@ for name, group in df_2021.groupby(['Circuit.circuitName']):
     names.append(name)
     means.append(group['FastestLap.AverageSpeed.speed'].mean())
 
-fig7.add_trace(go.Bar(x=means, y=names, orientation='h'))
+fig9.add_trace(go.Bar(x=means, y=names, orientation='h'))
 
-fig7.update_xaxes(title={'text': 'Seconden'})
-fig7.update_yaxes(title={'text': 'Circuit'})
-fig7.update_layout(title="Gemiddelde tijd van de snelste ronde per circuit in seizoen 2021")
+fig9.update_xaxes(title={'text': 'Seconden'})
+fig9.update_yaxes(title={'text': 'Circuit'})
+fig9.update_layout(title="Gemiddelde tijd van de snelste ronde per circuit in seizoen 2021")
+
+fig9.show()
+
+# Calc. pole positions per driver
+
+fig7 = go.Figure()
+
+driversPoles = []
+polePositions = []
+
+driversWins = []
+winPositions = []
+
+for driver, group in df_2021.groupby('Driver.familyName'):
+    
+    rowNumPoles = group[group['grid'] == 1].shape[0]
+
+    rowNumWins = group[group['position'] == 1].shape[0]
+
+    if(rowNumPoles != 0):
+        driversPoles.append(driver)
+        polePositions.append(rowNumPoles)
+
+
+
+    if(rowNumWins != 0):
+        driversWins.append(driver)
+        winPositions.append(rowNumWins)
+    
+    
+    
+    # winPositions.append(rowNumWins)
+
+
+fig7.add_trace(go.Bar(x=driversPoles, y=polePositions, name="Pole"))
+fig7.add_trace(go.Bar(x=driversWins, y=winPositions, name="Win"))
+
+# Create the buttons
+dropdown_buttons = [
+{'label': "ALL", 'method': "update", 'args': [{"visible": [True, True]}, {"title": "ALL"}]},
+{'label': "Pole", 'method': "update", 'args': [{"visible": [True, False]}, {"title": "Pole"}]},
+{'label': "Win", 'method': "update", 'args': [{"visible": [False, True]}, {"title": "Win"}]}
+]
+
+fig7.update_layout(
+    title="Verdeling pole posities en races gewonnen per coureur in seizoen 2021",
+    xaxis_title="Coureur",
+    yaxis_title="Aantal",
+    legend_title="Type",
+    updatemenus = [{'active': 0, 'buttons': dropdown_buttons}]
+    )
 
 fig7.show()
+
+#Finished, +1 Lap, +2 Laps, +3 Laps
+df_2021['Finished_Int'] = np.where((df_2021['status']=='Finished')| 
+                                     (df_2021['status'] == '+1 Lap')|
+                                     (df_2021['status'] == '+2 Laps')|
+                                     (df_2021['status'] == '+3 Laps'),1,0)
+
+df_2021['TotalPoints'] = df_2021.groupby(by=['Driver.familyName'])['points'].transform('sum')
+
+df_2021['TotalFinishes'] = df_2021.groupby(by=['Driver.familyName'])['Finished_Int'].transform('sum')
+
+fig8 = px.scatter(df_2021, x="TotalPoints", y="TotalFinishes", color="Driver.familyName",
+                 range_y=[15, 23])
+fig8.show()
+
 # #### Setting up the dashboard
 
 # In[ ]:
@@ -336,7 +403,7 @@ plot2.plotly_chart(fig2)
 
 st.markdown('**Code uitleg**')
 st.markdown('Hier moeten we de code uitleggen[...]')
-st.code(fig1)
+# st.code(fig1)
 
 # In[ ]:
 
@@ -355,8 +422,12 @@ plot6.plotly_chart(fig6)
 
 # In[ ]:
 
-plot7, text8 = st.columns([5, 5])
+plot7, plot8 = st.columns([5, 5])
 plot7.plotly_chart(fig7)
-text8.markdown('**Code uitleg**')
-text8.markdown('Hier moeten we de code uitleggen[...]')
+plot8.plotly_chart(fig8)
+
+plot9, text8 = st.columns([5, 5])
+plot9.plotly_chart(fig9)
+
+
 
