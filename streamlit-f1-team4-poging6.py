@@ -376,7 +376,9 @@ df_2021['TotalFinishes'] = df_2021.groupby(by=['Driver.familyName'])['Finished_I
 
 fig8 = px.scatter(df_2021, x="TotalPoints", y="TotalFinishes", color="Driver.familyName",
                  range_y=[15, 23], title='Verdeling aantal punten per gefinishte races', 
-                  labels={'TotalFinishes':'# Finishes', 'TotalPoints':'Aantal punten', 'Driver.familyName':'Coureur')
+                 labels={'TotalFinishes':'# Finishes', 'TotalPoints':'Aantal punten', 'Driver.familyName':'Coureur')
+
+fig8.update_layout()
 fig8.show()
 
 # #### Setting up the dashboard
