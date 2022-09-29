@@ -437,7 +437,15 @@ st.code(subset_2021, language='python')
 st.markdown('Naast de bestaande data zijn er voor de visualisaties extra kolommen met data aangemaakt. Deze extra kolommen maken het mekkelijker om bepaalde inzichten in totale punten en finishes per coureur en team te weergeven.')
 
 kolommen_code = '''df_seasons_races['totalPointsDriver'] = df_seasons_races.groupby(by=['season','Driver.driverId'])['points'].transform('cumsum')
-df_seasons_races['totalPointsConstructor'] = df_seasons_races.groupby(by=['season','Constructor.constructorId'])['points'].transform('cumsum')'''
+df_seasons_races['totalPointsConstructor'] = df_seasons_races.groupby(by=['season','Constructor.constructorId'])['points'].transform('cumsum')
+df_2021['Finished_Int'] = np.where((df_2021['status']=='Finished')| 
+                                     (df_2021['status'] == '+1 Lap')|
+                                     (df_2021['status'] == '+2 Laps')|
+                                     (df_2021['status'] == '+3 Laps'),1,0)
+
+df_2021['TotalPoints'] = df_2021.groupby(by=['Driver.familyName'])['points'].transform('sum')
+
+df_2021['TotalFinishes'] = df_2021.groupby(by=['Driver.familyName'])['Finished_Int'].transform('sum')'''
 
 st.code(kolommen_code, language='python')
 
