@@ -583,13 +583,7 @@ st.markdown('In de volgende visualisaties is gekeken naar de verhouding tussen w
 st.markdown('**Code uitleg**')
 st.markdown('Voor de scatterplot is gebruik gemaakt van plotly express. Door de eerder opgestelde integer kolom met het aantal gefinishte races per coureur te gebruiken, kon deze waarde tegen het aantal behaalde punten per coureur worden geplot. Dit geeft als resultaat een mooie scatterplot waar duidelijke conclusies uit konnen worden getrokken. Zo is te zien dat Hamilton 2 races meer gefinisht heeft, maar toch minder punten heeft behaald dan Verstappen. ')
 
-scatterplot_code = '''fig8 = px.scatter(df_2021, x="TotalPoints", y="TotalFinishes", color="Driver.familyName",
-                 range_y=[15, 23], title='Verdeling aantal punten per gefinishte races', 
-                 labels={'TotalFinishes':'# Finishes', 'TotalPoints':'Aantal punten', 'Driver.familyName':'Coureur'})
-fig8.update_layout()
-fig8.show()'''
 
-st.code(scatterplot_code,language='python')
 
 
 plot7, plot8 = st.columns([5, 5])
