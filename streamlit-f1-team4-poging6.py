@@ -323,8 +323,8 @@ st.title('F1 2021 Season Overview')
 # In[ ]:
 
 
-st.header('Behaalde punten in seizoen 2021')
-st.subheader('Hier moeten we beschrijven wat er te zien is in de plot[...]')
+st.subheader('Behaalde punten in seizoen 2021')
+st.markdown('Hier moeten we beschrijven wat er te zien is in de plot[...]')
 
 
 # In[ ]:
@@ -336,7 +336,7 @@ plot2.plotly_chart(fig2)
 
 st.markdown('**Code uitleg**')
 st.markdown('Hier moeten we de code uitleggen[...]')
-# st.code(fig1)
+st.code(fig1)
 
 # In[ ]:
 
