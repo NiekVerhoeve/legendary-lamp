@@ -443,14 +443,44 @@ st.markdown('Hier moeten we beschrijven wat er te zien is in de plot[...]')
 
 # In[ ]:
 
+st.markdown('**Code uitleg**')
+st.markdown('Hier moeten we de code uitleggen[...]')
+
+linechart_code = '''# Plotting the data
+fig2 = px.line(df_2021, x="round", y="totalPointsConstructor", color='Constructor.name', 
+              title="Gecumuleerd aantal punten per constructeur per race in seizoen 2021", range_y=[0,650])
+
+# Create the buttons
+dropdown_buttons = [
+{'label': "ALL", 'method': "update", 'args': [{"visible": [True, True, True]}, {"title": "Gecumuleerd aantal punten per constructeur per race in seizoen 2021"}]},
+{'label': "Mercedes", 'method': "update", 'args': [{"visible": [True, False, False, False, False, False, False, False, False, False]}, {"title": "Gecumuleerd aantal punten Mercedes per race in seizoen 2021"}]},
+{'label': "Red Bull", 'method': "update", 'args': [{"visible": [False, True, False, False, False, False, False, False, False, False]}, {"title": "Gecumuleerd aantal punten Red Bull per race in seizoen 2021"}]},
+{'label': "McLaren", 'method': "update", 'args': [{"visible": [False, False, True, False, False, False, False, False, False, False]}, {"title": "Gecumuleerd aantal punten McLaren per race in seizoen 2021"}]},
+{'label': "Ferrari", 'method': "update", 'args': [{"visible": [False, False, False, True, False, False, False, False, False, False]}, {"title": "Gecumuleerd aantal punten Ferrari per race in seizoen 2021"}]},
+{'label': "AlphaTauri", 'method': "update", 'args': [{"visible": [False, False, False, False, True, False, False, False, False, False]}, {"title": "Gecumuleerd aantal punten AlphaTauri per race in seizoen 2021"}]},
+{'label': "Aston Martin", 'method': "update", 'args': [{"visible": [False, False, False, False, False, True, False, False, False, False]}, {"title": "Gecumuleerd aantal punten Aston Martin per race in seizoen 2021"}]},
+{'label': "Alfa Romeo", 'method': "update", 'args': [{"visible": [False, False, False, False, False, False, True, False, False, False]}, {"title": "Gecumuleerd aantal punten Alfa Romeo per race in seizoen 2021"}]},
+{'label': "Alpine F1 Team", 'method': "update", 'args': [{"visible": [False, False, False, False, False, False, False, True, False, False]}, {"title": "Gecumuleerd aantal punten Alpine F1 Team per race in seizoen 2021"}]},
+{'label': "Williams", 'method': "update", 'args': [{"visible": [False, False, False, False, False, False, False, False, True, False]}, {"title": "Gecumuleerd aantal punten Williams per race in seizoen 2021"}]},
+{'label': "Haas F1 Team", 'method': "update", 'args': [{"visible": [False, False, False, False, False, False, False, False, False, True]}, {"title": "Gecumuleerd aantal punten Haas F1 Team per race in seizoen 2021"}]},
+]
+
+# Making the layout
+fig2.update_layout({'updatemenus': [
+        {'active': 0, 'buttons': dropdown_buttons}
+        ]})
+
+fig2.update_xaxes(type='category', title={'text': 'Race'})
+fig2.update_yaxes(title={'text': 'Gecumuleerd aantal punten'})
+fig2.update_layout(legend_title_text='Constructeur')
+fig2.show()'''
+
+st.code(linechart_code, language='python')
 
 plot1, plot2 = st.columns([5, 5])
 plot1.plotly_chart(fig1)
 plot2.plotly_chart(fig2)
 
-st.markdown('**Code uitleg**')
-st.markdown('Hier moeten we de code uitleggen[...]')
-# st.code(fig1)
 
 # In[ ]:
 
