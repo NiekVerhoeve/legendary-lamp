@@ -357,7 +357,7 @@ dropdown_buttons = [
 fig7.update_layout(
     title="Verdeling pole posities en races gewonnen per coureur in seizoen 2021",
     xaxis_title="Coureur",
-    yaxis_title="Aantal",
+    yaxis_title="Aantal poles/wins",
     legend_title="Type",
     updatemenus = [{'active': 0, 'buttons': dropdown_buttons}]
     )
@@ -375,7 +375,8 @@ df_2021['TotalPoints'] = df_2021.groupby(by=['Driver.familyName'])['points'].tra
 df_2021['TotalFinishes'] = df_2021.groupby(by=['Driver.familyName'])['Finished_Int'].transform('sum')
 
 fig8 = px.scatter(df_2021, x="TotalPoints", y="TotalFinishes", color="Driver.familyName",
-                 range_y=[15, 23])
+                 range_y=[15, 23], title='Verdeling aantal punten per gefinishte races', 
+                  labels={'TotalFinishes':'# Finishes', 'TotalPoints':'Aantal punten', 'Driver.familyName':'Coureur')
 fig8.show()
 
 # #### Setting up the dashboard
