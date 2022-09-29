@@ -393,7 +393,7 @@ st.title('F1 2021 Season Overview')
 # In[ ]:
 
 st.subheader('Inladen van de API')
-st.markdown('Voor het maken van een dashboard is er gebruikt gemaakt van de Formule 1 API, die verkregen is via http://ergast.com/mrd/. Deze dataset bevat de gegevens van alle Formule 1 races van 1950 tot nu. Door de hoeveelheid van data is er gekozen om voor dit dashboard alleen gebruik te maken van het seizoen 2021. Met behulp van onderstaande code wordt de API ingeladen')
+st.markdown('Voor het maken van een dashboard is er gebruikt gemaakt van de Formule 1 API, die verkregen is via http://ergast.com/mrd/. Deze dataset bevat de gegevens van alle Formule 1 races van 1950 tot nu. Door de hoeveelheid van data is er gekozen om voor dit dashboard alleen gebruik te maken van het seizoen 2021. Met behulp van onderstaande code wordt de API ingeladen:')
 
 import_api= '''seasons = [2021]
 
@@ -422,6 +422,13 @@ for season in seasons:
                 print('Successfully fetched data from source: ' + url + '.')'''
 
 st.code(import_api, language='python')
+st.markdown('Door de print functies in bovenstaande code kan je precies zien of het importeren is gelukt, en zo niet zal er een foutmelding worden gegeven. Echter is de data die nu is verkregen nog niet bruikbaar. Dit komt omdat de json data nog nested is. Dit wordt opgelost door de volgende code:') 
+
+fixing_nested = '''df_seasons_races = pd.json_normalize(seasons_races, 
+    record_path=['Results'], 
+    meta=['season', 'round', 'raceName', 'date', 'time', ['Circuit', 'circuitName'], 
+          ['Circuit', 'Location', 'locality'], ['Circuit', 'Location', 'country']])'''
+st.code(fixing_nested, language='python')
 
 st.subheader('Behaalde punten in seizoen 2021')
 st.markdown('Hier moeten we beschrijven wat er te zien is in de plot[...]')
