@@ -394,7 +394,44 @@ st.title('F1 2021 Season Overview')
 
 st.subheader('Inladen van de API')
 st.markdown('Voor het maken van een dashboard is er gebruikt gemaakt van de Formule 1 API, die verkregen is via http://ergast.com/mrd/. Deze dataset bevat de gegevens van alle Formule 1 races van 1950 tot nu. Door de hoeveelheid van data is er gekozen om voor dit dashboard alleen gebruik te maken van het seizoen 2021. Met behulp van onderstaande code wordt de API ingeladen')
-# st.code()
+
+import_api= '''seasons = [2021]
+
+seasons_races = []
+
+for season in seasons:
+    
+    url = 'https://ergast.com/api/f1/' + str(season) + '.json'
+    
+    response = requests.get(url)
+
+    if response.status_code != 200:
+
+        print('Error fetching data from source: ' + url)
+
+    else:
+
+        data = response.json()
+
+        for race in data['MRData']['RaceTable']['Races']:
+            
+            url = 'http://ergast.com/api/f1/' + str(season) + '/' + race['round'] + '/results.json'
+            
+            response = requests.get(url)
+
+            if response.status_code != 200:
+
+                print('Error fetching data from source: ' + url)
+
+            else:
+
+                data = response.json()
+
+                seasons_races.append(data['MRData']['RaceTable']['Races'][0])
+
+                print('Successfully fetched data from source: ' + url + '.')'''
+
+st.code(import_api, language='python')
 
 st.subheader('Behaalde punten in seizoen 2021')
 st.markdown('Hier moeten we beschrijven wat er te zien is in de plot[...]')
