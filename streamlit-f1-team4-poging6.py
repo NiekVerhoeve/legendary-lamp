@@ -323,8 +323,8 @@ st.title('F1 2021 Season Overview')
 # In[ ]:
 
 
-st.subheader('Behaalde punten in seizoen 2021')
-st.markdown('Hier moeten we beschrijven wat er te zien is in de plot[...]')
+st.header('Behaalde punten in seizoen 2021')
+st.subheader('Hier moeten we beschrijven wat er te zien is in de plot[...]')
 
 
 # In[ ]:
