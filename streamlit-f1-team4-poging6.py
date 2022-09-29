@@ -393,7 +393,7 @@ st.title('F1 2021 Season Overview')
 # In[ ]:
 
 st.subheader('Inladen van de API')
-st.markdown('Voor het maken van een dashboard is er gebruikt gemaakt van de Formule 1 API, die verkregen is via http://ergast.com/mrd/. Deze dataset bevat de gegevens van alle Formule 1 races van 1950 tot nu. Door de hoeveelheid van data is er gekozen om voor dit dashboard alleen gebruik te maken van het seizoen 2021. Met behulp van onderstaande code worden eerst alle races van het 2021 seizoen opgehaald, waarna per opgehaalde race hierbij ook de bijbehorende resultaten worden verzameld:')
+st.markdown('Voor het maken van een dashboard is er gebruikt gemaakt van de Formule 1 API, die verkregen is via http://ergast.com/mrd/. Deze dataset bevat de gegevens van alle Formule 1 races van 1950 tot nu. Door de hoeveelheid van data is er gekozen om voor dit dashboard alleen gebruik te maken van het seizoen 2021. Met behulp van onderstaande code worden eerst alle gewenste seizoenen opgehaald, waarna per opgehaald seizoen hierbij ook de bijbehorende resultaten worden verzameld. Binnen de gebruikte API is ook een seizoensoverzicht van heel 2021, deze heeft alleen aanzienlijk minder data per race beschikbaar. Om deze reden hebben is het besluit genomen om per race de resultaten van de betreffende race een voor een in te laden. Dit zorgt voor meer beschikbare data van de races waardoor er dus meer inzichten gerealiseerd kunnen worden.')
 
 import_api= '''seasons = [2021]
 
