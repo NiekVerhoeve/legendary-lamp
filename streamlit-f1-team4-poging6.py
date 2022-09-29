@@ -435,7 +435,7 @@ subset_2021 = '''df_2021 = df_seasons_races[df_seasons_races['season'] == 2021]'
 st.code(subset_2021, language='python')
 
 st.markdown('Nu de dataset volledig en correct is geimporteerd, kan deze worden bekeken. In onderstaande tabel zijn de eerste 10 rijen van de dataset zichtbaar gemaakt.')
-st.dataframe(df_2021.head())
+st.dataframe(df_2021.head(10))
 
 st.subheader('Behaalde punten in seizoen 2021')
 st.markdown('Hier moeten we beschrijven wat er te zien is in de plot[...]')
