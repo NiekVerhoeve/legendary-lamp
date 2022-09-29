@@ -577,14 +577,20 @@ plot6.plotly_chart(fig6)
 
 # In[ ]:
 
+scatterplot_code = '''fig8 = px.scatter(df_2021, x="TotalPoints", y="TotalFinishes", color="Driver.familyName",
+                 range_y=[15, 23], title='Verdeling aantal punten per gefinishte races', 
+                 labels={'TotalFinishes':'# Finishes', 'TotalPoints':'Aantal punten', 'Driver.familyName':'Coureur'})
+
+fig8.update_layout()
+fig8.show()'''
+
 st.subheader('Pole posities, wins en finishes')
 st.markdown('In de volgende visualisaties is gekeken naar de verhouding tussen wins en pole positions, en het aantal finishes en punten. In de staafgrafiek is een mooie visualisatie die per coureur 2 staven laat zien. Een staaf die het aantal pole posities aangeeft binnen het seizoen, en een andere staaf die de wins weergeeft. Met deze staafgrafiek is gemakkelijk te zien of er een duidelijk verband ligt tussen het aantal pole posities en wins per coureur. In de scatterplot is een overzicht gemaakt van het aantal punten en finishes per coureur. Uiteraard zijn er meerdere oorzaken waardoor een coureur een race niet kan finishen en dus geen kans maakt op punten. Hierdoor is er in dit scatterplot te zien hoeveel races die coureurs hebben gefinished en hoeveel punten zij in deze races hebben behaald.')
 
 st.markdown('**Code uitleg**')
 st.markdown('Voor de scatterplot is gebruik gemaakt van plotly express. Door de eerder opgestelde integer kolom met het aantal gefinishte races per coureur te gebruiken, kon deze waarde tegen het aantal behaalde punten per coureur worden geplot. Dit geeft als resultaat een mooie scatterplot waar duidelijke conclusies uit konnen worden getrokken. Zo is te zien dat Hamilton 2 races meer gefinisht heeft, maar toch minder punten heeft behaald dan Verstappen. ')
 
-
-
+st.code(scatterplot_code, language='python')
 
 plot7, plot8 = st.columns([5, 5])
 plot7.plotly_chart(fig7)
